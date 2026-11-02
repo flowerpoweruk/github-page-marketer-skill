@@ -1,0 +1,6 @@
+interface:
+  display_name: "GitHub Page Marketer Skill"
+  short_description: "Audit GitHub pages for marketing and discoverability"
+  default_prompt: "Use $github-page-marketer to audit this GitHub project page. Review the four Cs and Discoverability, preserve what works, and prioritise evidence-based feedback without editing the repository."
+policy:
+  allow_implicit_invocation: true
