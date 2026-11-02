@@ -1,7 +1,9 @@
 # GitHub Page Marketing Audit — {{project}}
 
-Repository: {{canonical URL or supplied file}}  
-Mode: {{Audit / Advanced}}  
+Repository: {{canonical URL or supplied file}}
+
+Mode: {{Audit / Advanced}}
+
 Evidence: {{branch/revision if known; text/rendered page/images/metadata actually inspected}}
 
 ## What the page communicates
@@ -39,9 +41,12 @@ Evidence: {{branch/revision if known; text/rendered page/images/metadata actuall
 
 ### {{Priority}} — {{Concrete improvement}}
 
-**Evidence:** {{Location or short excerpt; distinguish observation from inference.}}  
-**Reader consequence:** {{Likely effect, without claiming observed user behaviour.}}  
-**Recommendation:** {{Concrete supported change; illustrative wording if helpful.}}  
+**Evidence:** {{Location or short excerpt; distinguish observation from inference.}}
+
+**Reader consequence:** {{Likely effect, without claiming observed user behaviour.}}
+
+**Recommendation:** {{Concrete supported change; illustrative wording if helpful.}}
+
 **Substantiation needed:** {{Only if applicable; never invent facts.}}
 
 ## Advanced comparison

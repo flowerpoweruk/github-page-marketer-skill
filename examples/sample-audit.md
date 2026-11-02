@@ -33,22 +33,30 @@ The Examples section names a concrete task and explains the human review step. I
 
 ### High — Put the concrete purpose in the opening
 
-**Evidence:** “The revolutionary AI-powered ecosystem for modern developers” precedes the actual CI-log use case in Examples.  
-**Reader consequence:** Readers must investigate architecture before learning whether the tool addresses their task.  
+**Evidence:** “The revolutionary AI-powered ecosystem for modern developers” precedes the actual CI-log use case in Examples.
+
+**Reader consequence:** Readers must investigate architecture before learning whether the tool addresses their task.
+
 **Recommendation:** Bring the documented use case forward. For example: “Nimbus analyses failed GitHub Actions logs and suggests patches for you to review, apply and test.” State the supported log-size boundary nearby.
 
 ### High — Align the promises with the experimental scope
 
-**Evidence:** The opening says “Production-ready. Secure. Blazing fast.” Examples says the project is experimental and tested only with one log source and a size limit.  
-**Reader consequence:** The page sets conflicting expectations about reliance and maturity. This is a communication finding, not evidence of an actual security failure.  
-**Recommendation:** Use a consistent experimental description. Retain stronger claims only with relevant, specific substantiation and appropriate scope.  
+**Evidence:** The opening says “Production-ready. Secure. Blazing fast.” Examples says the project is experimental and tested only with one log source and a size limit.
+
+**Reader consequence:** The page sets conflicting expectations about reliance and maturity. This is a communication finding, not evidence of an actual security failure.
+
+**Recommendation:** Use a consistent experimental description. Retain stronger claims only with relevant, specific substantiation and appropriate scope.
+
 **Substantiation needed:** The page currently supplies no basis for its security or speed claims.
 
 ### High — Complete one route to a useful result
 
-**Evidence:** Installation requires two services and `settings.yaml`, then stops at `python app.py`. It does not explain creating the configuration or providing a log.  
-**Reader consequence:** An interested reader cannot follow the documented path to a first suggestion.  
-**Recommendation:** Explain required configuration, show a supported invocation with an example log, and show the actual resulting suggestion and remaining review work. Describe how to confirm the required services are ready. Fix the quickstart link as part of this route.  
+**Evidence:** Installation requires two services and `settings.yaml`, then stops at `python app.py`. It does not explain creating the configuration or providing a log.
+
+**Reader consequence:** An interested reader cannot follow the documented path to a first suggestion.
+
+**Recommendation:** Explain required configuration, show a supported invocation with an example log, and show the actual resulting suggestion and remaining review work. Describe how to confirm the required services are ready. Fix the quickstart link as part of this route.
+
 **Substantiation needed:** The author must supply actual commands, configuration and representative output; the audit should not invent them.
 
 ## Inspection limits
