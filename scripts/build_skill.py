@@ -12,7 +12,7 @@ from page_marketer.markdown import inventory
 
 ROOT = Path(__file__).resolve().parents[1]
 NAME = "github-page-marketer"
-INCLUDED = ["SKILL.md", "agents", "references", "templates", "examples", "scripts/audit.py", "scripts/share_buttons.py", "scripts/page_marketer"]
+INCLUDED = ["SKILL.md", "agents", "assets", "references", "templates", "examples", "scripts/audit.py", "scripts/share_buttons.py", "scripts/page_marketer"]
 
 
 def validate(root=ROOT):
@@ -39,6 +39,13 @@ def validate(root=ROOT):
     for required in INCLUDED:
         if not (root / required).exists():
             errors.append(f"Missing skill asset: {required}")
+    interface_path = root / "agents" / "openai.yaml"
+    if interface_path.is_file():
+        interface = interface_path.read_text(encoding="utf-8")
+        for target in re.findall(r'^\s+icon_(?:small|large):\s*"([^"]+)"', interface, re.M):
+            resolved = (root / target).resolve()
+            if not resolved.is_relative_to(root.resolve()) or not resolved.is_file():
+                errors.append(f"Missing or external skill icon: {target}")
     return errors
 
 

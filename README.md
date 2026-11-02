@@ -1,5 +1,7 @@
 # GitHub Page Marketer Skill
 
+<img src="assets/logo-readme.png" alt="GitHub Page Marketer Skill — white and green wordmark on a dark background" width="480">
+
 **Find what stops visitors from understanding, trusting, and trying your GitHub project.**
 
 A feedback-only marketing audit for an existing GitHub page. It reviews **Clarity, Conciseness, Compelling benefits, and Credibility**, with a separate **Discoverability** section covering search language, topics, navigation, package context, and social previews.
@@ -75,7 +77,7 @@ Use `--no-logos` for text-only badges, `--platforms reddit,x,hackernews` to sele
 
 The skill runs in your existing assistant; no separate AI service, OpenAI API key, or paid backend is required. Helper tools use **Python 3.10+** and the standard library only. The skill itself can also work through the host's GitHub and browsing tools without running Python.
 
-[Download the v1.0.0 skill bundle](https://github.com/flowerpoweruk/github-page-marketer-skill/raw/refs/heads/main/downloads/github-page-marketer-1.0.0.skill), or clone this repository and build it yourself:
+[Download the v1.0.1 skill bundle](https://github.com/flowerpoweruk/github-page-marketer-skill/raw/refs/heads/main/downloads/github-page-marketer-1.0.1.skill), or clone this repository and build it yourself:
 
 ```bash
 git clone https://github.com/flowerpoweruk/github-page-marketer-skill.git

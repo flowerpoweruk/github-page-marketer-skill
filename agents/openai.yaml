@@ -1,6 +1,9 @@
 interface:
   display_name: "GitHub Page Marketer Skill"
   short_description: "Audit GitHub pages for marketing and discoverability"
+  icon_small: "./assets/icon-small.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00B52A"
   default_prompt: "Use $github-page-marketer to audit this GitHub project page. Review the four Cs and Discoverability, preserve what works, and prioritise evidence-based feedback without editing the repository."
 policy:
   allow_implicit_invocation: true
