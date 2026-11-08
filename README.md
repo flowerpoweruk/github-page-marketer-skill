@@ -95,6 +95,61 @@ python3 -m zipfile -e dist/github-page-marketer.skill "${CODEX_HOME:-$HOME/.code
 
 If that skill folder already exists, compare or back it up before replacing it. Reload your assistant's skill discovery if needed. The host decides how skills are loaded; this project does not register a background service. [Core skill instructions](SKILL.md)
 
+### Windows 11 (PowerShell)
+
+Use these steps with Codex CLI running natively on Windows 11. Choose one way to get the bundle, then run the install commands in the same PowerShell window.
+
+#### Option 1. Download the v1.0.1 bundle
+
+```powershell
+$bundle = Join-Path $env:TEMP 'github-page-marketer-1.0.1.zip'
+$url = 'https://github.com/flowerpoweruk/github-page-marketer-skill/raw/refs/heads/main/downloads/github-page-marketer-1.0.1.skill'
+Invoke-WebRequest -Uri $url -OutFile $bundle -UseBasicParsing -ErrorAction Stop
+```
+
+The `.skill` bundle is already a ZIP archive. Saving it with a `.zip` extension lets PowerShell extract it with `Expand-Archive`.
+
+#### Option 2. Clone and build from source
+
+Install Git for Windows and Python 3.10 or later. The commands use the Windows Python launcher (`py`). If your Python installation uses `python`, run `python --version` to confirm the version, then replace `py -3` with `python`.
+
+```powershell
+git clone https://github.com/flowerpoweruk/github-page-marketer-skill.git
+if ($LASTEXITCODE -ne 0) { throw 'Git clone failed.' }
+Set-Location -LiteralPath '.\github-page-marketer-skill' -ErrorAction Stop
+
+$bundle = Join-Path (Get-Location).Path 'dist\github-page-marketer.zip'
+py -3 scripts/build_skill.py --output "$bundle"
+if ($LASTEXITCODE -ne 0) { throw 'Skill build failed.' }
+```
+
+#### Install and verify
+
+Extract the archive into Codex's [user-level skills directory](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills), `$HOME\.agents\skills`. The archive creates the `github-page-marketer` folder for you. If you're replacing an existing copy, move it to a backup location outside your skills directories first.
+
+```powershell
+$skillsDir = Join-Path $HOME '.agents\skills'
+$skillDir = Join-Path $skillsDir 'github-page-marketer'
+
+if (Test-Path -LiteralPath $skillDir) {
+    throw "A copy already exists at $skillDir. Back it up before installing."
+}
+
+Expand-Archive -LiteralPath $bundle -DestinationPath $skillsDir -ErrorAction Stop
+
+foreach ($file in 'SKILL.md', 'agents\openai.yaml', 'assets\icon.png',
+                  'references\audit-rubric.md', 'templates\report.md', 'scripts\audit.py') {
+    $path = Join-Path $skillDir $file
+    if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
+        throw "Missing installed file $path"
+    }
+}
+
+Write-Output "Verified skill files in $skillDir"
+```
+
+In Codex CLI, type `$` in the prompt and look for `github-page-marketer` (GitHub Page Marketer Skill). If it doesn't appear, exit Codex, start it again with `codex`, and check the picker again. Select the skill and ask it to audit a repository URL.
+
 ## Evidence collector
 
 Optional tools help the assistant gather a consistent, read-only inventory:
