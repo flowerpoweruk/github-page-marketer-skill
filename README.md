@@ -1,99 +1,83 @@
 # GitHub Page Marketer Skill
 
+**Find out what to improve on your GitHub project page.**
+
+Built a GitHub project you want more people to try? Give GitHub Page Marketer your repository link and get a short, prioritised list of changes to help visitors understand what it does, see why it’s worth trying, and get started. No marketing experience needed.
+
+[Install in Codex](#install) · [See a sample audit](examples/sample-audit.md)
+
 <img src="assets/logo-readme.png" alt="GitHub Page Marketer Skill — white and green wordmark on a dark background" width="480">
-
-**Find what stops visitors from understanding, trusting, and trying your GitHub project.**
-
-A feedback-only marketing audit for an existing GitHub page. It reviews **Clarity, Conciseness, Compelling benefits, and Credibility**, with a separate **Discoverability** section covering search language, topics, navigation, package context, and social previews.
-
-Give it your repository URL. The default audit works from the published page without an intake questionnaire. It identifies what works and prioritises the changes most likely to help the intended reader.
 
 ## Use it
 
-Load the skill into a compatible assistant, then ask:
+[Install the skill in Codex](#install), then select `github-page-marketer` in the skill picker. Replace `OWNER/REPO` with your repository and send this prompt.
 
 ```text
 Use GitHub Page Marketer to audit https://github.com/OWNER/REPO.
 ```
 
-You can also supply a local or pasted README. The audit proceeds with available evidence and marks unavailable metadata or visuals as not inspected.
+The audit starts from your published page and explains what already works, what to change first, and why. You can also supply a local or pasted README. The report identifies any repository details it couldn’t inspect. You decide which edits to make.
 
-The skill does not edit the audited repository, open PRs, change settings, or post to social platforms. Suggested wording, topics and sharing badges are copyable outputs for you to review.
+### What a recommendation looks like
 
-## What the report contains
+In the fictional Nimbus audit, the tool’s main use case was buried under *Architecture*. The audit suggested putting this sentence in the opening.
 
-- **What your page communicates:** a brief reading of the apparent audience, purpose, benefits and starting route.
-- **What already works:** specific strengths to preserve.
-- **Four Cs:** how effectively the page explains and presents the project.
-- **Discoverability:** a distinct inspection of repository metadata and relevant page structure.
-- **Priority improvements:** usually three to five, fewer when appropriate, each tied to evidence and a concrete recommendation.
+> Nimbus analyses failed GitHub Actions logs and suggests patches for you to review, apply and test.
 
-See a [worked sample audit](examples/sample-audit.md). It uses a fictional project and makes no claims about real user outcomes.
-
-## Audit and Advanced modes
-
-**Audit** is the default: no positioning questionnaire. The skill infers what it can, qualifies uncertain judgments and treats ambiguity as a finding.
-
-**Advanced** adds five optional questions about your intended audience, purpose and benefits. Ask for Advanced mode to compare your intent against what the page actually communicates.
-
-1. **Who is the project primarily intended for?**
-   The people the page should speak to most directly.
-2. **What knowledge or experience do you expect those people to have?**
-   This helps the audit judge whether explanations are appropriately technical or assume too much.
-3. **What is the main thing the project enables them to do?**
-   Its core purpose, before getting into supporting features.
-4. **What do they gain from using it?**
-   The practical benefits: less work, better results, more control, creative possibilities, or something else.
-5. **Which of those benefits should be the strongest reason to try it?**
-   This establishes what deserves emphasis, rather than treating every benefit as equally important.
-
-Short answers, skipped questions and “not sure” are fine. The page-only reading comes first, so your answers do not conceal communication gaps.
-
-## Discoverability
-
-| Area | What gets reviewed |
-| --- | --- |
-| Search-language alignment | Repository name, About description, README heading and opening |
-| Topic Tagging Engine | Current topics and a supported proposed set of up to 20 |
-| Structure and navigation | Headings, section anchors, documentation links and alt text |
-| Ecosystem context | Actual package identity and relevant registry metadata, where available |
-| Social preview | Actual Open Graph tags and preview image, where accessible |
-
-The audit respects documented platform behaviour: GitHub's default repository search uses name, description and topics; README search uses `in:readme`. Google sitelinks, social-card rendering and registry search differ by platform. The skill does not promise rankings, search traffic or CTR gains. [Mechanisms and sources](references/discoverability.md)
-
-## Share Button Generator
-
-Ask for GitHub-compatible share buttons and receive a compact Markdown row for Reddit and X. Hacker News is also supported. Known Discord invitations can be included separately as community links. The generator encodes actual project URLs and factual titles; it never submits a post.
-
-```bash
-python3 scripts/share_buttons.py \
-  --repo flowerpoweruk/github-page-marketer-skill \
-  --title "GitHub Page Marketer Skill — audit project pages and discoverability"
-```
-
-Use `--no-logos` for text-only badges, `--platforms reddit,x,hackernews` to select platforms, or `--format json` for structured output. [Generator details](references/share-buttons.md)
+[Read the worked sample audit](examples/sample-audit.md).
 
 ## Install
 
-The skill runs in your existing assistant; no separate AI service, OpenAI API key, or paid backend is required. Helper tools use **Python 3.10+** and the standard library only. The skill itself can also work through the host's GitHub and browsing tools without running Python.
+These instructions assume you have Codex CLI set up. Choose [macOS or Linux (Bash)](#macos-or-linux-bash) or [Windows 11 (PowerShell)](#windows-11-powershell). Both install the skill in Codex’s [user-level skills directory](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
 
-[Download the v1.0.1 skill bundle](https://github.com/flowerpoweruk/github-page-marketer-skill/raw/refs/heads/main/downloads/github-page-marketer-1.0.1.skill), or clone this repository and build it yourself:
+### macOS or Linux (Bash)
 
-```bash
-git clone https://github.com/flowerpoweruk/github-page-marketer-skill.git
-cd github-page-marketer-skill
-python3 scripts/build_skill.py
-```
+Choose a download or source build, then run **Install and verify** in the same shell. You need `python3` (Python 3.10 or later) for either route. The download uses `curl` and the source build uses Git.
 
-This creates `dist/github-page-marketer.skill`, a ZIP-format bundle containing the skill, references, report template and runtime tools. A compatible host may import it directly; otherwise extract its `github-page-marketer` folder into the host's skills directory.
-
-For Codex, install the extracted folder under `$CODEX_HOME/skills` (default `~/.codex/skills`):
+#### Option 1. Download the v1.0.1 bundle
 
 ```bash
-python3 -m zipfile -e dist/github-page-marketer.skill "${CODEX_HOME:-$HOME/.codex}/skills"
+download_dir="$(mktemp -d)" &&
+  bundle="$download_dir/github-page-marketer-1.0.1.skill" &&
+  curl --fail --location --output "$bundle" \
+    'https://github.com/flowerpoweruk/github-page-marketer-skill/raw/refs/heads/main/downloads/github-page-marketer-1.0.1.skill'
 ```
 
-If that skill folder already exists, compare or back it up before replacing it. Reload your assistant's skill discovery if needed. The host decides how skills are loaded; this project does not register a background service. [Core skill instructions](SKILL.md)
+You can also [download the bundle in your browser](https://github.com/flowerpoweruk/github-page-marketer-skill/raw/refs/heads/main/downloads/github-page-marketer-1.0.1.skill) and set `bundle` to the full path of the downloaded file.
+
+#### Option 2. Clone and build from source
+
+```bash
+git clone https://github.com/flowerpoweruk/github-page-marketer-skill.git &&
+  cd github-page-marketer-skill &&
+  python3 scripts/build_skill.py &&
+  bundle="$PWD/dist/github-page-marketer.skill"
+```
+
+The builder creates `dist/github-page-marketer.skill` and refuses to overwrite an existing archive.
+
+#### Install and verify
+
+Once you have the bundle, extract it to `$HOME/.agents/skills`. The archive creates the `github-page-marketer` folder for you. Move any existing copy to a backup location outside your skills directories before replacing it.
+
+```bash
+(
+  set -eu
+
+  skills_dir="$HOME/.agents/skills"
+  skill_dir="$skills_dir/github-page-marketer"
+
+  if [ -e "$skill_dir" ] || [ -L "$skill_dir" ]; then
+    printf 'A copy already exists at %s. Back it up before installing.\n' "$skill_dir" >&2
+    exit 1
+  fi
+
+  mkdir -p "$skills_dir"
+  python3 -m zipfile -e "${bundle:?Download or build the bundle first.}" "$skills_dir"
+  test -f "$skill_dir/SKILL.md"
+  printf 'Verified skill file in %s\n' "$skill_dir"
+)
+```
 
 ### Windows 11 (PowerShell)
 
@@ -148,21 +132,43 @@ foreach ($file in 'SKILL.md', 'agents\openai.yaml', 'assets\icon.png',
 Write-Output "Verified skill files in $skillDir"
 ```
 
-In Codex CLI, type `$` in the prompt and look for `github-page-marketer` (GitHub Page Marketer Skill). If it doesn't appear, exit Codex, start it again with `codex`, and check the picker again. Select the skill and ask it to audit a repository URL.
+### Run your first audit
+
+In Codex CLI, type `$` in the prompt and look for `github-page-marketer` (GitHub Page Marketer Skill). If it doesn’t appear, exit Codex, start it again with `codex`, and check the picker again. Select the skill and [send the audit prompt](#use-it).
+
+## What the report contains
+
+- **What your page communicates.** Who it seems to be for, what the project does, and how a visitor would get started.
+- **What already works.** The parts of the page worth keeping.
+- **Four Cs.** How clearly and concisely the page explains the project, how compelling its benefits are, and what makes its claims credible.
+- **Discoverability.** How the page and repository metadata help people find and navigate the project.
+- **Priority improvements.** Usually three to five changes, each tied to evidence and a concrete recommendation.
+
+## Audit and Advanced modes
+
+**Audit** starts with the project page and needs no questionnaire.
+
+**Advanced** compares what the page communicates with what you want it to communicate. Ask for Advanced mode and answer as many of the [five questions about audience, purpose and benefits](references/advanced-mode.md) as you like.
+
+## Discoverability
+
+| Area | What gets reviewed |
+| --- | --- |
+| Search-language alignment | Repository name, About description, README heading and opening |
+| Topic Tagging Engine | Current topics and a supported proposed set of up to 20 |
+| Structure and navigation | Headings, section anchors, documentation links and alt text |
+| Ecosystem context | Actual package identity and relevant registry metadata, where available |
+| Social preview | Actual Open Graph tags and preview image, where accessible |
+
+See how the audit handles [GitHub search, repository topics and social previews](references/discoverability.md).
+
+## Share Button Generator
+
+Ask for GitHub-compatible Markdown share buttons for Reddit and X. Hacker News is also available. If you have a Discord community invite, the skill can format it as a separate link. You choose where to use the output. [Generator commands and options](references/share-buttons.md)
 
 ## Evidence collector
 
-Optional tools help the assistant gather a consistent, read-only inventory:
-
-```bash
-# Public GitHub repository; optional existing GH_TOKEN for API access.
-python3 scripts/audit.py --repo OWNER/REPO --output evidence.json
-
-# Offline: no network requests.
-python3 scripts/audit.py --readme /path/to/README.md --output evidence-offline.json
-```
-
-Offline snapshots can include `--metadata metadata.json`, `--html repository.html`, and `--repo-url https://github.com/OWNER/REPO`. Output files are never overwritten. The JSON contains observations and candidates, not an automated marketing score. The assistant uses the rubric to interpret them. [Tool options and limits](references/tools.md)
+The optional Python tools collect a read-only inventory from a public repository or local snapshots. They use Python 3.10 or later and the standard library. The skill can also work with the evidence available to Codex. [Live and offline commands](references/tools.md)
 
 ## The thinking behind it
 
